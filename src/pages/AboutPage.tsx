@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
@@ -42,7 +41,7 @@ export function AboutPage() {
 
       {/* Portrait + Intro */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-20 md:py-28">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -55,7 +54,7 @@ export function AboutPage() {
             }}
             className="relative"
           >
-            <div className="aspect-[3/4] overflow-hidden">
+            <div className="aspect-3/4 overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=800"
                 alt="Elara Voss in her studio"
