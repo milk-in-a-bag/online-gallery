@@ -57,3 +57,10 @@ h6 {
   background-color: var(--color-blush);
   color: var(--color-charcoal);
 }
+
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
