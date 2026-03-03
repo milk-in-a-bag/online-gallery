@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -12,8 +12,9 @@ import { ArtworkCard } from "../components/ArtworkCard";
 import {
   getArtworkBySlug,
   getRelatedArtworks,
-  Artwork,
+  type Artwork,
 } from "../data/artworks";
+import { useCart } from "../context/CartContext";
 const categoryLabels: Record<string, string> = {
   paintings: "Painting",
   prints: "Print",
@@ -25,10 +26,26 @@ export function ArtworkDetailPage() {
     slug: string;
   }>();
   const navigate = useNavigate();
-  const [addedToCart, setAddedToCart] = useState(false);
+  const { addItem, items } = useCart();
   const [wishlisted, setWishlisted] = useState(false);
   const [zoomed, setZoomed] = useState(false);
   const artwork = slug ? getArtworkBySlug(slug) : undefined;
+
+  const isInCart = artwork
+    ? items.some((item) => item.id === artwork.id)
+    : false;
+
+  const handleAddToCart = () => {
+    if (artwork) {
+      addItem({
+        id: artwork.id,
+        title: artwork.title,
+        price: artwork.price,
+        imageUrl: artwork.imageUrl,
+        category: artwork.category,
+      });
+    }
+  };
   if (!artwork) {
     return (
       <div className="min-h-screen bg-cream flex items-center justify-center pt-20">
@@ -95,10 +112,9 @@ export function ArtworkDetailPage() {
             }}
             className="relative"
           >
-            <div
+            <button
               className={`relative overflow-hidden cursor-zoom-in ${zoomed ? "cursor-zoom-out" : ""}`}
               onClick={() => setZoomed(!zoomed)}
-              role="button"
               aria-label={zoomed ? "Zoom out" : "Zoom in"}
             >
               <img
@@ -114,7 +130,7 @@ export function ArtworkDetailPage() {
                   <ZoomInIcon className="w-4 h-4 text-charcoal" />
                 </div>
               )}
-            </div>
+            </button>
             <p className="font-inter text-xs text-taupe/50 text-center mt-3 tracking-wide">
               Click image to zoom
             </p>
@@ -185,11 +201,12 @@ export function ArtworkDetailPage() {
                 variant="primary"
                 size="lg"
                 fullWidth
-                onClick={() => setAddedToCart(true)}
+                onClick={handleAddToCart}
                 className="flex-1"
+                disabled={isInCart}
               >
                 <ShoppingBagIcon className="w-4 h-4" />
-                {addedToCart ? "Added to Cart ✓" : "Add to Cart"}
+                {isInCart ? "Added to Cart ✓" : "Add to Cart"}
               </Button>
               <button
                 onClick={() => setWishlisted(!wishlisted)}

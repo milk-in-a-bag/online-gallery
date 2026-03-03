@@ -2,30 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ShoppingBagIcon, MenuIcon, XIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CartDrawer, type CartItem } from "./CartDrawer";
-const MOCK_CART_ITEMS: CartItem[] = [
-  {
-    id: "golden-reverie",
-    title: "Golden Reverie",
-    price: 1200,
-    imageUrl:
-      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800",
-    category: "paintings",
-  },
-  {
-    id: "soft-geometry",
-    title: "Soft Geometry",
-    price: 320,
-    imageUrl:
-      "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800",
-    category: "prints",
-  },
-];
+import { CartDrawer } from "./CartDrawer";
+import { useCart } from "../context/CartContext";
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>(MOCK_CART_ITEMS);
+  const { items, isOpen, openCart, closeCart, removeItem } = useCart();
   const location = useLocation();
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -58,9 +41,7 @@ export function Navbar() {
   const isActive = (href: string) => location.pathname === href;
   const isHome = location.pathname === "/";
   const useWhiteText = !scrolled && isHome;
-  const handleRemoveItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+
   return (
     <>
       <nav
@@ -106,14 +87,14 @@ export function Navbar() {
             {/* Right Side */}
             <div className="flex items-center gap-4">
               <button
-                onClick={() => setCartOpen(true)}
-                aria-label={`Shopping cart, ${cartItems.length} items`}
+                onClick={openCart}
+                aria-label={`Shopping cart, ${items.length} items`}
                 className={`relative p-2 transition-colors duration-300 ${useWhiteText ? "text-white/90 hover:text-white" : "text-charcoal hover:text-gold"}`}
               >
                 <ShoppingBagIcon className="w-5 h-5" />
-                {cartItems.length > 0 && (
+                {items.length > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-gold text-white text-[10px] font-inter font-semibold rounded-full flex items-center justify-center">
-                    {cartItems.length}
+                    {items.length}
                   </span>
                 )}
               </button>
@@ -189,10 +170,10 @@ export function Navbar() {
 
       {/* Cart Drawer */}
       <CartDrawer
-        open={cartOpen}
-        onClose={() => setCartOpen(false)}
-        items={cartItems}
-        onRemove={handleRemoveItem}
+        open={isOpen}
+        onClose={closeCart}
+        items={items}
+        onRemove={removeItem}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -10,13 +10,7 @@ import {
   PackageIcon,
 } from "lucide-react";
 import { Button } from "../components/Button";
-interface CartItem {
-  id: string;
-  title: string;
-  price: number;
-  imageUrl: string;
-  category: string;
-}
+import { useCart } from "../context/CartContext";
 interface ShippingForm {
   firstName: string;
   lastName: string;
@@ -32,24 +26,6 @@ interface PaymentForm {
   expiry: string;
   cvv: string;
 }
-const MOCK_ITEMS: CartItem[] = [
-  {
-    id: "golden-reverie",
-    title: "Golden Reverie",
-    price: 1200,
-    imageUrl:
-      "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800",
-    category: "paintings",
-  },
-  {
-    id: "soft-geometry",
-    title: "Soft Geometry",
-    price: 320,
-    imageUrl:
-      "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800",
-    category: "prints",
-  },
-];
 const categoryLabels: Record<string, string> = {
   paintings: "Painting",
   prints: "Print",
@@ -92,6 +68,7 @@ const labelClass =
   "block font-inter text-xs tracking-widest uppercase text-taupe/70 mb-1.5";
 export function CheckoutPage() {
   const navigate = useNavigate();
+  const { items, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState<Step>("shipping");
   const [orderNumber] = useState(
     () => `EV-${Math.floor(10000 + Math.random() * 90000)}`,
@@ -111,7 +88,14 @@ export function CheckoutPage() {
     expiry: "",
     cvv: "",
   });
-  const subtotal = MOCK_ITEMS.reduce((s, i) => s + i.price, 0);
+
+  // Redirect if cart is empty
+  if (items.length === 0 && currentStep !== "confirmation") {
+    navigate("/gallery");
+    return null;
+  }
+
+  const subtotal = items.reduce((s, i) => s + i.price, 0);
   const shipping_cost = 0;
   const total = subtotal + shipping_cost;
   const stepIndex = steps.findIndex((s) => s.key === currentStep);
@@ -126,6 +110,7 @@ export function CheckoutPage() {
   const handlePaymentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setCurrentStep("confirmation");
+    clearCart();
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -491,7 +476,7 @@ export function CheckoutPage() {
                 </h3>
 
                 <ul className="space-y-4 mb-5">
-                  {MOCK_ITEMS.map((item) => (
+                  {items.map((item) => (
                     <li key={item.id} className="flex gap-3 items-start">
                       <div className="relative flex-shrink-0">
                         <img
@@ -605,7 +590,7 @@ export function CheckoutPage() {
                 Your Order
               </h3>
               <ul className="space-y-3">
-                {MOCK_ITEMS.map((item) => (
+                {items.map((item) => (
                   <li key={item.id} className="flex items-center gap-3">
                     <img
                       src={item.imageUrl}
