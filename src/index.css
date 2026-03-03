@@ -2,6 +2,17 @@
 
 @import "tailwindcss";
 
+@theme {
+  --color-cream: #faf7f2;
+  --color-blush: #e8b4a0;
+  --color-gold: #c9a96e;
+  --color-taupe: #8b7355;
+  --color-charcoal: #2c2c2c;
+
+  --font-family-playfair: "Playfair Display", serif;
+  --font-family-inter: "Inter", sans-serif;
+}
+
 :root {
   --color-cream: #faf7f2;
   --color-blush: #e8b4a0;
@@ -13,7 +24,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-family-inter);
   background-color: var(--color-cream);
   color: var(--color-charcoal);
   -webkit-font-smoothing: antialiased;
@@ -25,13 +36,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", serif;
-}
-.font-playfair {
-  font-family: "Playfair Display", serif;
-}
-.font-inter {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-family-playfair);
 }
 /* Custom scrollbar */
 ::-webkit-scrollbar {
