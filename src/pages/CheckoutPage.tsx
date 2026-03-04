@@ -131,7 +131,7 @@ export function CheckoutPage() {
     },
     transition: {
       duration: 0.3,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
   };
   return (

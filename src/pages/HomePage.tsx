@@ -1,10 +1,10 @@
-import React, { useState, memo } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "../components/Button";
 import { ArtworkCard } from "../components/ArtworkCard";
-import { getFeaturedArtworks, Artwork } from "../data/artworks";
+import { getFeaturedArtworks, type Artwork } from "../data/artworks";
 const fadeUp = {
   hidden: {
     opacity: 0,

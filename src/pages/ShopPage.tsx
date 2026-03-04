@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArtworkCard } from "../components/ArtworkCard";
-import { artworks, Artwork, ArtworkCategory } from "../data/artworks";
+import { artworks, type Artwork, type ArtworkCategory } from "../data/artworks";
 type FilterOption = "all" | ArtworkCategory;
 const filters: {
   label: string;
