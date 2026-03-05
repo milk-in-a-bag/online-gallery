@@ -1,73 +1,107 @@
-# React + TypeScript + Vite
+# Elara Voss Online Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sophisticated online art gallery and e-commerce platform showcasing the work of contemporary artist Elara Voss. Built with modern web technologies to deliver an elegant, immersive browsing experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Curated Art Collection** - Browse paintings, prints, digital art, and sculptures
+- **Detailed Artwork Pages** - High-quality images with descriptions, dimensions, and pricing
+- **Shopping Cart** - Add items to cart with persistent state management
+- **Checkout Flow** - Multi-step checkout process with shipping and payment forms
+- **Responsive Design** - Optimized for all devices with Tailwind CSS
+- **Smooth Animations** - Polished interactions using Framer Motion
+- **Artist Information** - Dedicated about and contact pages
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **React 19** - UI library with latest features
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and dev server
+- **React Router** - Client-side routing
+- **Tailwind CSS 4** - Utility-first styling
+- **Framer Motion** - Animation library
+- **Lucide React** - Icon library
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18+ and npm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Clone the repository
+git clone https://github.com/milk-in-a-bag/online-gallery.git
+
+# Navigate to project directory
+cd online-gallery
+
+# Install dependencies
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Start development server
+npm run dev
 ```
+
+The app will be available at `https://online-gallery-mbls.vercel.app/`
+
+### Build
+
+```bash
+# Create production build
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+### Linting
+
+```bash
+# Run ESLint
+npm run lint
+```
+
+## Project Structure
+
+```
+src/
+├── components/       # Reusable UI components
+│   ├── ArtworkCard.tsx
+│   ├── Button.tsx
+│   ├── CartDrawer.tsx
+│   ├── Footer.tsx
+│   └── Navbar.tsx
+├── context/         # React context providers
+│   └── CartContext.tsx
+├── data/            # Static data and content
+│   └── artworks.tsx
+├── pages/           # Route pages
+│   ├── AboutPage.tsx
+│   ├── ArtworkDetailPage.tsx
+│   ├── CheckoutPage.tsx
+│   ├── ContactPage.tsx
+│   ├── HomePage.tsx
+│   └── ShopPage.tsx
+├── App.tsx          # Main app component with routing
+├── main.tsx         # Application entry point
+└── index.css        # Global styles
+```
+
+## Design System
+
+The project uses a carefully crafted design system with:
+
+- **Typography**: Playfair Display (serif) and Inter (sans-serif)
+- **Color Palette**: Cream, charcoal, taupe, blush, and gold accents
+- **Spacing**: Consistent spacing scale
+- **Components**: Reusable button variants and card layouts
+
+## Author
+
+Built by [milk-in-a-bag](https://github.com/milk-in-a-bag)
