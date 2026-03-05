@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="32" fill="#F5EFE7"/>
+  
+  <!-- Elegant brush stroke -->
+  <path d="M18 38 Q25 28, 32 32 T46 26" stroke="#C9A961" stroke-width="3" stroke-linecap="round" fill="none"/>
+  
+  <!-- Abstract paint splash -->
+  <circle cx="28" cy="35" r="4" fill="#D4A5A5" opacity="0.6"/>
+  <circle cx="38" cy="28" r="3" fill="#C9A961" opacity="0.7"/>
+  
+  <!-- Stylized 'E' for Elara -->
+  <path d="M24 18 L24 22 L28 22 M24 20 L27 20 M24 22 L24 26" stroke="#3D3D3D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
